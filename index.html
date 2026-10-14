@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Simran & Arjun – Wedding Invitation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rozha+One&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<style>
+:root{--mustard:#F2B705;--maroon:#7A1020;--teal:#1FA89A;--mint:#BFEBDD;--navy:#0F1B33;--cream:#FFF3D1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{height:100%;scroll-behavior:smooth;scroll-padding-top:60px}
+body{margin:0;background:#070e1d;font-family:'Poppins',system-ui,sans-serif;color:var(--cream);min-height:100%}
+.display{font-family:'Rozha One',Georgia,serif}
+#app{max-width:480px;margin:0 auto;background:var(--navy);min-height:100vh;position:relative;overflow-x:hidden;box-shadow:0 0 60px #000a}
+.stripes{background:repeating-linear-gradient(45deg,var(--mustard) 0 10px,var(--maroon) 10px 20px,var(--teal) 20px 30px,var(--navy) 30px 40px);height:14px}
+.dots{background-image:radial-gradient(var(--mustard) 1.5px,transparent 1.6px);background-size:18px 18px;opacity:.18;position:absolute;inset:0;pointer-events:none}
+/* hero */
+#hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 24px;position:relative;background:radial-gradient(circle at 50% 35%,#7A1020 0,#3b0a18 55%,var(--navy) 100%)}
+.plate{background:var(--mustard);color:var(--navy);border:4px solid var(--navy);outline:4px solid var(--mustard);border-radius:10px;padding:6px 18px;font-weight:700;letter-spacing:.08em;box-shadow:5px 5px 0 var(--navy)}
+#hornBtn{position:relative;width:190px;height:190px;border-radius:50%;border:0;background:var(--mustard);box-shadow:0 8px 0 #a77d00,0 0 0 6px var(--navy),0 0 0 10px var(--mustard);touch-action:none;user-select:none;-webkit-user-select:none;cursor:pointer;transition:transform .1s}
+#hornBtn:active,#hornBtn.down{transform:translateY(6px);box-shadow:0 2px 0 #a77d00,0 0 0 6px var(--navy),0 0 0 10px var(--mustard)}
+#hornBtn:focus-visible{outline:3px solid var(--mint);outline-offset:14px}
+#ring{position:absolute;inset:-18px;transform:rotate(-90deg);pointer-events:none}
+#ring circle{fill:none;stroke:var(--mint);stroke-width:5;stroke-dasharray:640;stroke-dashoffset:640;stroke-linecap:round}
+#hornBtn.down #ring circle{stroke-dashoffset:0;transition:stroke-dashoffset 1.2s linear}
+.waves path{opacity:0;stroke:var(--mint);stroke-width:4;fill:none;stroke-linecap:round}
+#hornBtn.down .waves path{animation:wave .6s infinite}
+#hornBtn.down .waves path:nth-child(2){animation-delay:.2s}
+@keyframes wave{0%{opacity:0;transform:translateX(-6px)}50%{opacity:1}100%{opacity:0;transform:translateX(8px)}}
+/* main */
+#main.locked{display:none}
+.sec{padding:44px 22px;position:relative}
+.card{border:4px solid var(--c,var(--mustard));border-radius:14px;background:var(--navy);box-shadow:6px 6px 0 var(--c,var(--mustard));position:relative;padding:16px}
+.card::before{content:"";position:absolute;inset:4px;border:2px dashed #ffffff33;border-radius:9px;pointer-events:none}
+.btn{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:13px;padding:9px 12px;border-radius:8px;border:3px solid var(--navy);box-shadow:3px 3px 0 var(--navy);text-decoration:none;color:var(--navy);transition:transform .1s}
+.btn:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--navy)}
+.btn:focus-visible{outline:3px solid var(--cream);outline-offset:2px}
+/* countdown */
+.flip{width:68px;height:80px;background:var(--cream);color:var(--maroon);border:4px solid var(--navy);outline:3px solid var(--mustard);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;perspective:200px;box-shadow:0 5px 0 #0007}
+.flip::after{content:"";position:absolute;left:0;right:0;top:50%;height:3px;background:var(--navy);opacity:.55}
+.flip.go span{animation:flip .5s ease}
+@keyframes flip{0%{transform:rotateX(0)}50%{transform:rotateX(-90deg);opacity:.2}100%{transform:rotateX(0)}}
+/* drive bar */
+#drive{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;z-index:40;padding-top:env(safe-area-inset-top,0px);background:#2a2f3a;border-bottom:3px solid var(--mustard);display:none}
+#drive.on{display:block}
+#road{height:30px;position:relative;background:repeating-linear-gradient(90deg,#fff 0 16px,transparent 16px 32px) center/100% 3px no-repeat}
+#truck{position:absolute;top:0;font-size:24px;line-height:30px;transform:scaleX(-1);will-change:left}
+#truck.m{animation:bump .25s infinite}
+@keyframes bump{50%{margin-top:-2px}}
+#flag{position:absolute;right:6px;top:0;line-height:30px;font-size:18px}
+/* timeline */
+.tl{position:relative;padding-left:34px}
+.tl::before{content:"";position:absolute;left:11px;top:0;bottom:0;width:8px;background:#2a2f3a;border-left:2px solid #fff3;border-right:2px solid #fff3}
+.tl::after{content:"";position:absolute;left:14px;top:0;bottom:0;width:2px;background:repeating-linear-gradient(var(--mustard) 0 10px,transparent 10px 20px)}
+.stone{position:absolute;left:-34px;top:14px;width:30px;height:30px;border-radius:50% 50% 6px 6px;background:var(--c);border:3px solid var(--cream);z-index:2;display:flex;align-items:center;justify-content:center;font-size:14px}
+.ev{margin-bottom:28px;position:relative}
+.rv{opacity:0;transform:translateY(24px);transition:.6s}
+.rv.in{opacity:1;transform:none}
+#music{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom,0px));right:max(18px,calc(50% - 222px));z-index:50;width:56px;height:56px;border-radius:50%;background:var(--teal);border:4px solid var(--navy);box-shadow:0 0 0 3px var(--mustard),0 6px 14px #0008;font-size:24px;cursor:pointer;display:none}
+#music.on{display:block}
+#music:focus-visible{outline:3px solid var(--cream);outline-offset:4px}
+#music.play{animation:spin 3s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- drive bar -->
+<div id="drive" aria-hidden="true"><div id="road"><span id="truck">🚚</span><span id="flag">🏁</span></div></div>
+
+<!-- HERO -->
+<header id="hero">
+  <div class="dots"></div>
+  <div class="plate text-xs mb-5 relative">ਸ਼ਾਦੀ ਦਾ ਸੱਦਾ • WEDDING INVITE</div>
+  <h1 class="display text-5xl leading-tight relative" style="color:var(--mustard);text-shadow:3px 3px 0 var(--navy)">Simran<br><span class="text-3xl" style="color:var(--mint)">weds</span><br>Arjun</h1>
+  <p class="mt-3 mb-8 text-sm relative" style="color:var(--cream)">Dhaba ka khaana, dholki ki taal,<br>aur shaadi ka dhamaal. Chalo, chalein!</p>
+
+  <button id="hornBtn" aria-label="Press and hold the horn to open the invitation">
+    <svg id="ring" viewBox="0 0 220 220"><circle cx="110" cy="110" r="102"/></svg>
+    <svg viewBox="0 0 100 100" width="130" height="130" style="display:block;margin:auto">
+      <path d="M12 38h14l30-18v60L26 62H12z" fill="#7A1020" stroke="#0F1B33" stroke-width="4" stroke-linejoin="round"/>
+      <rect x="56" y="14" width="10" height="72" rx="4" fill="#1FA89A" stroke="#0F1B33" stroke-width="4"/>
+      <circle cx="30" cy="50" r="5" fill="#F2B705"/>
+      <g class="waves"><path d="M74 36q10 14 0 28"/><path d="M84 28q16 22 0 44"/></g>
+    </svg>
+  </button>
+  <p id="hornMsg" class="mt-8 text-lg font-bold relative" style="color:var(--mustard)">Press &amp; hold the horn 📯</p>
+  <p class="text-xs mt-1 opacity-70 relative">Honk to open the invitation (sound on)</p>
+</header>
+
+<main id="main" class="locked">
+  <div class="stripes"></div>
+
+  <!-- Invite -->
+  <section class="sec text-center" style="background:var(--maroon)">
+    <div class="dots"></div>
+    <div class="relative">
+      <p class="text-sm" style="color:var(--mint)">With the blessings of Waheguru and our families</p>
+      <p class="display text-3xl mt-3" style="color:var(--mustard)">Sardar Gurmeet Singh &amp; Smt. Harpreet Kaur</p>
+      <p class="my-2 text-sm">request your presence at the wedding of their daughter</p>
+      <p class="display text-4xl" style="color:var(--cream)">Simran</p>
+      <p class="text-sm">with</p>
+      <p class="display text-4xl" style="color:var(--cream)">Arjun</p>
+      <p class="mt-2 text-sm">son of Sh. Balwinder Singh &amp; Smt. Jasleen Kaur</p>
+      <div class="plate inline-block mt-5 text-lg">12 DEC 2026 • AMRITSAR</div>
+    </div>
+  </section>
+
+  <!-- Countdown -->
+  <section class="sec text-center" style="background:var(--teal);color:var(--navy)">
+    <h2 class="display text-3xl">Gaadi chalne mein...</h2>
+    <p class="text-sm font-semibold mb-5">Countdown to Anand Karaj, 12 Dec 2026, 11:00 AM</p>
+    <div class="flex justify-center gap-2" id="cd" role="timer" aria-live="off">
+      <div><div class="flip display" data-k="d"><span>00</span></div><p class="text-xs font-bold mt-2">Days</p></div>
+      <div><div class="flip display" data-k="h"><span>00</span></div><p class="text-xs font-bold mt-2">Hours</p></div>
+      <div><div class="flip display" data-k="m"><span>00</span></div><p class="text-xs font-bold mt-2">Minutes</p></div>
+      <div><div class="flip display" data-k="s"><span>00</span></div><p class="text-xs font-bold mt-2">Seconds</p></div>
+    </div>
+  </section>
+  <div class="stripes"></div>
+
+  <!-- Roadmap -->
+  <section class="sec">
+    <h2 class="display text-3xl text-center" style="color:var(--mustard)">Shaadi Highway Roadmap</h2>
+    <p class="text-center text-sm mb-8 opacity-80">Five stops. Zero brakes.</p>
+    <div class="tl" id="events"></div>
+  </section>
+
+  <footer class="text-center pb-24 pt-8 px-6" style="background:var(--maroon)">
+    <p class="display text-2xl" style="color:var(--mustard)">Aana zaroor, jee!</p>
+    <p class="text-sm mt-2">Your presence is the biggest shagun.<br>Dhaba on the house. 🍛</p>
+    <p class="text-xs mt-4 opacity-70">Hasna, Naachna &amp; Khaana – Simran &amp; Arjun, 2026</p>
+  </footer>
+  <div class="stripes"></div>
+</main>
+
+<button id="music" aria-label="Play or pause background music" title="Music">🎶</button>
+</div>
+
+<script>
+/* ===== EDIT ME ===== */
+const WEDDING = new Date('2026-12-12T11:00:00+05:30');
+const EVENTS = [
+ {icon:'🌸',c:'#F2B705',name:'Roka & Chunni',date:'Wed, 9 Dec 2026',time:'11:00 AM',s:'20261209T110000',e:'20261209T140000',venue:'Gurdwara Sahib Hall, Lawrence Road, Amritsar',note:'Blessings, sweets and the first dhol of the season.'},
+ {icon:'🌿',c:'#1FA89A',name:'Mehndi',date:'Thu, 10 Dec 2026',time:'2:00 PM',s:'20261210T140000',e:'20261210T180000',venue:'Haveli Lawns, Mall Road, Amritsar',note:'Mehndi, chaat and gossip. Wear yellow and green.'},
+ {icon:'🥁',c:'#C9283E',name:'Sangeet & Jago',date:'Fri, 11 Dec 2026',time:'7:00 PM',s:'20261211T190000',e:'20261212T000000',venue:'Truck Art Farmhouse, GT Road, Amritsar',note:'Bhangra battle, boliyan and the traditional Jago night.'},
+ {icon:'🙏',c:'#F2B705',name:'Anand Karaj',date:'Sat, 12 Dec 2026',time:'11:00 AM',s:'20261212T110000',e:'20261212T140000',venue:'Gurdwara Sri Guru Singh Sabha, Amritsar',note:'The sacred ceremony. Head covered, heart open. Langar follows.'},
+ {icon:'🎉',c:'#1FA89A',name:'Reception',date:'Sat, 12 Dec 2026',time:'7:30 PM',s:'20261212T193000',e:'20261212T230000',venue:'The Royal Dhaba Banquet, Ranjit Avenue, Amritsar',note:'Dinner, dance floor and a dhaba-style food street.'}
+];
+/* =================== */
+
+const $=s=>document.querySelector(s);
+const enc=encodeURIComponent;
+let ac,master,noiseBuf;
+function ctx(){
+  if(!ac){ac=new (window.AudioContext||window.webkitAudioContext)();master=ac.createGain();master.gain.value=.6;master.connect(ac.destination);
+    noiseBuf=ac.createBuffer(1,ac.sampleRate*.2,ac.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;}
+  if(ac.state==='suspended')ac.resume();return ac;
+}
+
+/* ---- horn ---- */
+let hornStop=null;
+function startHorn(){
+  ctx();const t=ac.currentTime,g=ac.createGain(),lp=ac.createBiquadFilter();
+  lp.type='lowpass';lp.frequency.value=1400;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.45,t+.04);
+  const os=[349.23,440,523.25].map((f,i)=>{const o=ac.createOscillator();o.type=i==2?'square':'sawtooth';o.frequency.value=f;o.detune.value=i*4;o.connect(lp);o.start(t);return o});
+  lp.connect(g);g.connect(master);
+  return()=>{const n=ac.currentTime;g.gain.cancelScheduledValues(n);g.gain.setValueAtTime(g.gain.value,n);g.gain.linearRampToValueAtTime(0,n+.12);os.forEach(o=>o.stop(n+.15));};
+}
+let unlocked=false,holdT=null;
+const hb=$('#hornBtn');
+function down(e){if(unlocked||hornStop)return;e.preventDefault();hb.classList.add('down');hornStop=startHorn();holdT=setTimeout(release,1250);$('#hornMsg').textContent='Peep peep! Keep holding... 🚛';}
+function release(){
+  if(!hornStop)return;clearTimeout(holdT);hornStop();hornStop=null;hb.classList.remove('down');
+  unlocked=true;$('#hornMsg').textContent='Gaadi chal padi! 🚚💨';
+  $('#main').classList.remove('locked');$('#drive').classList.add('on');$('#music').classList.add('on');
+  setTimeout(()=>{$('#main').scrollIntoView({behavior:'smooth'});startMusic();},350);
+  onScroll();
+}
+hb.addEventListener('pointerdown',down);
+['pointerup','pointercancel'].forEach(ev=>hb.addEventListener(ev,release));
+hb.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter')down(e)});
+hb.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter')release()});
+
+/* ---- bhangra loop (synthesized) ---- */
+let playing=false,step=0,nextT=0,tmr=null;const EIGHTH=60/112/2;
+const MEL=[293.66,0,349.23,293.66,0,440,392,0,349.23,0,293.66,349.23,0,392,329.63,0];
+function tone(f,t,d,type,v,f2){const o=ac.createOscillator(),g=ac.createGain();o.type=type;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(master);o.start(t);o.stop(t+d+.02);}
+function tak(t,v){const s=ac.createBufferSource(),f=ac.createBiquadFilter(),g=ac.createGain();s.buffer=noiseBuf;f.type='bandpass';f.frequency.value=3200;f.Q.value=1.2;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.001,t+.09);s.connect(f);f.connect(g);g.connect(master);s.start(t);}
+function sched(i,t){
+  const k=i%16;
+  if([0,3,8,11].includes(k))tone(150,t,.28,'sine',.9,45);
+  if([2,4,6,10,12,14].includes(k))tak(t,.35);
+  if(k%2==0)tone(1800,t,.03,'square',.03);
+  const m=MEL[k];if(m){tone(m,t,.3,'triangle',.22);tone(m*2,t,.12,'sawtooth',.05);}
+  if(k==0)tone(73.4,t,EIGHTH*8,'sine',.25);
+  if(k==8)tone(87.3,t,EIGHTH*8,'sine',.25);
+}
+function pump(){while(nextT<ac.currentTime+.25){sched(step,nextT);nextT+=EIGHTH;step++;}}
+function startMusic(){ctx();if(playing)return;playing=true;nextT=ac.currentTime+.05;pump();tmr=setInterval(pump,60);$('#music').classList.add('play');}
+function stopMusic(){playing=false;clearInterval(tmr);$('#music').classList.remove('play');}
+$('#music').addEventListener('click',()=>playing?stopMusic():startMusic());
+
+/* ---- countdown ---- */
+const cells={};document.querySelectorAll('.flip').forEach(el=>cells[el.dataset.k]=el);
+function setCell(k,v){const el=cells[k],sp=el.firstElementChild,s=String(v).padStart(2,'0');if(sp.textContent!==s){sp.textContent=s;el.classList.remove('go');void el.offsetWidth;el.classList.add('go');}}
+function tick(){
+  let d=Math.max(0,WEDDING-Date.now());const S=Math.floor(d/1000);
+  setCell('d',Math.floor(S/86400));setCell('h',Math.floor(S%86400/3600));setCell('m',Math.floor(S%3600/60));setCell('s',S%60);
+}
+tick();setInterval(tick,1000);
+
+/* ---- scroll to drive ---- */
+const truck=$('#truck');let st;
+function onScroll(){
+  const max=document.documentElement.scrollHeight-innerHeight,p=max>0?Math.min(1,Math.max(0,scrollY/max)):0;
+  const road=$('#road').clientWidth;truck.style.left=(p*(road-64)+4)+'px';
+  truck.classList.add('m');clearTimeout(st);st=setTimeout(()=>truck.classList.remove('m'),150);
+}
+addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',onScroll);
+
+/* ---- events ---- */
+$('#events').innerHTML=EVENTS.map((e,i)=>{
+  const cal=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${enc(e.name+' – Simran & Arjun')}&dates=${e.s}/${e.e}&ctz=Asia/Kolkata&details=${enc(e.note)}&location=${enc(e.venue)}`;
+  const map=`https://www.google.com/maps/search/?api=1&query=${enc(e.venue)}`;
+  return `<article class="ev rv" style="--c:${e.c}"><div class="stone" aria-hidden="true">${e.icon}</div>
+  <div class="card"><h3 class="display text-2xl" style="color:${e.c}">${e.name}</h3>
+  <p class="text-sm font-semibold mt-1">📅 ${e.date} &nbsp; 🕒 ${e.time}</p>
+  <p class="text-sm mt-1">📍 ${e.venue}</p>
+  <p class="text-xs mt-2 opacity-80">${e.note}</p>
+  <div class="flex flex-wrap gap-2 mt-4">
+   <a class="btn" style="background:var(--mustard)" href="${cal}" target="_blank" rel="noopener">📆 Add to Google Calendar</a>
+   <a class="btn" style="background:var(--mint)" href="${map}" target="_blank" rel="noopener">🗺️ Google Maps</a>
+  </div></div></article>`;
+}).join('');
+const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{threshold:.15});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
